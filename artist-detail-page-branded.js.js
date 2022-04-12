@@ -37,7 +37,7 @@ const sendUserId = () => {
 
 // Abandoned Browse Event 
 
-const abandonedBrowse = () => {
+const abandonedBrowse = () => { 
     Evergage.DisplayUtils.pageExit(1000).then(() => {
         Evergage.sendEvent({
             action: "Ticketmaster Abandoned Browse"
