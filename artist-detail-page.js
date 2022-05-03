@@ -1,16 +1,19 @@
-Evergage.initSitemap({
-    global: {},
-    pageTypeDefault: {
-        name: "TicketmasterDefault",
-    },
-    pageTypes: [{
-        name: "tmArtistPage",
-        action: "Ticketmaster Artist",
-        isMatch: () => true,
-    }]
+Evergage.init({
+   
+}).then(() => {
+      
+    Evergage.initSitemap({
+        global: {},
+        pageTypeDefault: {
+            name: "TicketmasterDefault",
+        },
+        pageTypes: [{
+            name: "tmArtistPage",
+            action: "Ticketmaster Artist",
+            isMatch: () => true,
+        }]
+    });   // Initializes the Sitemap
 });
-
-// User ID merge event 
 
 const sendUserId = () => {
     if (/persistId/.test(window.location.href)) {
