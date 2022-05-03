@@ -1,16 +1,18 @@
-Evergage.initSitemap({
-    global: {},
-    pageTypeDefault: {
-        name: "TicketmasterDefault",
-    },
-    pageTypes: [{
-        name: "tmArtistPageBranded",
-        action: "Ticketmaster Artist Branded",
-        isMatch: () => true,
-    }]
-});
-
-// User ID merge event 
+Evergage.init({
+   
+}).then(() => {
+      
+    Evergage.initSitemap({
+        global: {},
+        pageTypeDefault: {
+            name: "TicketmasterDefault",
+        },
+        pageTypes: [{
+            name: "tmArtistPageBranded",
+            action: "Ticketmaster Artist Branded",
+            isMatch: () => true,
+        }]
+    });
 
 const sendUserId = () => {
     if (/persistId/.test(window.location.href)) {
@@ -37,7 +39,7 @@ const sendUserId = () => {
 
 // Abandoned Browse Event 
 
-const abandonedBrowse = () => { 
+const abandonedBrowse = () => {
     Evergage.DisplayUtils.pageExit(1000).then(() => {
         Evergage.sendEvent({
             action: "Ticketmaster Abandoned Browse"
