@@ -13,6 +13,7 @@ Evergage.init({
             isMatch: () => true,
         }]
     });
+})   
 
 const sendUserId = () => {
     if (/persistId/.test(window.location.href)) {
