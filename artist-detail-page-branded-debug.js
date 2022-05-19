@@ -53,4 +53,4 @@ let timerVar = setInterval(() => {
         sendUserId();
         abandonedBrowse();
     } 
-}, 2000)
+}, 1000)
