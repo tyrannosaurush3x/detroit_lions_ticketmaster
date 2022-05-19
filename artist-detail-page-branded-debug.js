@@ -18,15 +18,15 @@ let timerVar = setInterval(() => {
             }); // Initializes the Sitemap
         });
         const sendUserId = () => {
-            if (/persistId/.test(window.location.href)) {
+            if (/persistUserId/.test(window.location.href)) {
                 try {
-                    const anonId = location.href.split("persistId=")[1];
+                    const anonId = location.href.split("persistUserId=")[1];
                     Evergage.sendEvent({
                         name: "Ticketmaster ID merge",
                         action: "Ticketmaster ID merge",
                         user: {
                             attributes: {
-                                persistId: persistId
+                                persistId: anonId
                             }
                         }
                     })
