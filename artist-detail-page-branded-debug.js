@@ -11,8 +11,8 @@ let timerVar = setInterval(() => {
                     name: "TicketmasterDefault",
                 },
                 pageTypes: [{
-                    name: "tmArtistPage",
-                    action: "Ticketmaster Artist",
+                    name: "tmArtistPageBranded",
+                    action: "Ticketmaster Artist Branded",
                     isMatch: () => true,
                 }]
             }); // Initializes the Sitemap
