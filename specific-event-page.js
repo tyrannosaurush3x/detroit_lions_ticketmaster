@@ -1,23 +1,28 @@
 let timerVar = setInterval(() => {
     if (typeof Evergage != 'undefined') {
-        Evergage.initSitemap({
-            global: {},
-            pageTypeDefault: {
-                name: "TicketmasterDefault ",
-            },
-            pageTypes: [{
-                name: "tmEventPage ",
-                action: "Ticketmaster Event Detail",
-                isMatch: () => true,
-                catalog: {
-                    Product: {
-                        _id: '$event_id$',
-                        name: '$event_name$',
-                        url: '$document_href$'.split("" ? "")[0],
-                        categories: ['TICKETS|$artist_name$'.toUpperCase()]
+        clearInterval(timerVar);
+        Evergage.init({
+
+        }).then(() => {
+            Evergage.initSitemap({
+                global: {},
+                pageTypeDefault: {
+                    name: "TicketmasterDefault ",
+                },
+                pageTypes: [{
+                    name: "tmEventPage ",
+                    action: "Ticketmaster Event Detail",
+                    isMatch: () => true,
+                    catalog: {
+                        Product: {
+                            _id: '$event_id$',
+                            name: '$event_name$',
+                            url: '$document_href$'.split("" ? "")[0],
+                            categories: ['TICKETS|$artist_name$'.toUpperCase()]
+                        }
                     }
-                }
-            }]
+                }]
+            });
         });
         const sendUserId = () => {
             if (/persistUserId/.test(window.location.href)) {
@@ -39,7 +44,7 @@ let timerVar = setInterval(() => {
                     })
                 }
             }
-        
+
         }
         sendUserId();
     }
