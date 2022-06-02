@@ -1,27 +1,32 @@
 let timerVar = setInterval(() => {
     if (typeof Evergage != 'undefined') {
-        Evergage.initSitemap({
-            global: {},
-            pageTypeDefault: {
-                name: 'TicketmasterDefault',
-            },
-            pageTypes: [{
-                name: 'tmOrder',
-                action: 'Ticketmaster Order Confirmation',
-                isMatch: () => true,
-                itemAction: Evergage.ItemAction.Purchase,
-                order: {
-                    Product: {
-                        orderId: '$order_id$',
-                        totalValue: '$face_value$',
-                        lineItems: {
-                            _id: ['$event_id$'],
-                            price: [($face_value$ / $ticket_quantity$).toFixed(2)],
-                            quantity: [$ticket_quantity$]
+        clearInterval(timerVar);
+        Evergage.init({
+
+        }).then(() => {
+            Evergage.initSitemap({
+                global: {},
+                pageTypeDefault: {
+                    name: 'TicketmasterDefault',
+                },
+                pageTypes: [{
+                    name: 'tmOrder',
+                    action: 'Ticketmaster Order Confirmation',
+                    isMatch: () => true,
+                    itemAction: Evergage.ItemAction.Purchase,
+                    order: {
+                        Product: {
+                            orderId: '$order_id$',
+                            totalValue: '$face_value$',
+                            lineItems: {
+                                _id: ['$event_id$'],
+                                price: [($face_value$ / $ticket_quantity$).toFixed(2)],
+                                quantity: [$ticket_quantity$]
+                            }
                         }
                     }
-                }
-            }, ],
+                }],
+            });
         });
         const sendUserId = () => {
             if (/persistUserId/.test(window.location.href)) {
@@ -43,7 +48,8 @@ let timerVar = setInterval(() => {
                     })
                 }
             }
-        
+
         }
         sendUserId();
-    }}, 2000)
+    }
+}, 2000)
