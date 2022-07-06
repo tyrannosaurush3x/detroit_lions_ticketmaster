@@ -46,6 +46,24 @@ let timerVar = setInterval(() => {
             }
 
         }
+        
+        const sendAddToCart = () => {
+            Evergage.sendEvent({
+                itemAction: Evergage.ItemAction.AddToCart,
+                action: "Add To Cart",
+                cart: {
+                    singleLine: {
+                        Product: {
+                            _id: '$event_id$',
+                            price: '$event_name$',
+                            quantity: '$ticket_quantity$'
+                        }
+                    }
+                }
+            })
+        }
+
+        sendAddToCart();
         sendUserId();
     }
 }, 2000)
