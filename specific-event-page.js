@@ -13,12 +13,14 @@ let timerVar = setInterval(() => {
                     name: "tmEventPage ",
                     action: "Ticketmaster Event Detail",
                     isMatch: () => true,
+                    itemAction: Evergage.ItemAction.ViewCart,
                     catalog: {
                         Product: {
-                            _id: '$event_id$',
-                            name: '$event_name$',
-                            url: '$document_href$'.split("" ? "")[0],
-                            categories: ['TICKETS|$artist_name$'.toUpperCase()]
+                            lineItems: {
+                                _id: '$event_id$',
+                                price: 100,
+                                quantity: 1
+                            }
                         }
                     }
                 }]
@@ -47,23 +49,21 @@ let timerVar = setInterval(() => {
 
         }
         
-        const sendAddToCart = () => {
+        const sendProdView = () => {
             Evergage.sendEvent({
-                itemAction: Evergage.ItemAction.AddToCart,
-                action: "Add To Cart",
-                cart: {
-                    singleLine: {
-                        Product: {
-                            _id: '$event_id$',
-                            price: 100,
-                            quantity: 1
-                        }
+                itemAction: Evergage.ItemAction.ViewItem,
+                action: "View Item",
+                catalog: {
+                    Product: {
+                        _id: '$event_id$',
+                        name: '$event_name$',
+                        categories: ['TICKETS|$artist_name$'.toUpperCase()]
                     }
                 }
             })
         }
 
-        sendAddToCart();
+        sendProdView();
         sendUserId();
     }
 }, 2000)
