@@ -17,9 +17,9 @@ let timerVar = setInterval(() => {
                     catalog: {
                         Product: {
                             lineItems: {
-                                _id: '$event_id$',
-                                price: 100,
-                                quantity: 1
+                                _id: ['$event_id$'],
+                                price: [100],
+                                quantity: [1]
                             }
                         }
                     }
