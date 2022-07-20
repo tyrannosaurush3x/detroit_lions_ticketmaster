@@ -5,7 +5,17 @@ let timerVar = setInterval(() => {
 
         }).then(() => {
             Evergage.initSitemap({
-                global: {},
+                global: {
+                    onActionEvent: (actionEvent) => {
+                        if (/persistUserId/.test(window.location.href)) {
+                            const anonId = location.href.split("persistUserId=")[1];
+                            actionEvent.user = actionEvent.user || {};
+                            actionEvent.user.attributes = actionEvent.user.attributes || {};
+                            actionEvent.user.attributes.persistId = anonId;
+                        } 
+                        return actionEvent
+                    }
+                },
                 pageTypeDefault: {
                     name: "TicketmasterDefault ",
                 },
@@ -26,31 +36,21 @@ let timerVar = setInterval(() => {
                 }]
             });
         });
-        const sendUserId = () => {
-            if (/persistUserId/.test(window.location.href)) {
-                try {
-                    const anonId = location.href.split("persistUserId=")[1];
-                    Evergage.sendEvent({
-                        name: "Ticketmaster ID merge",
-                        action: "Ticketmaster ID merge",
-                        user: {
-                            attributes: {
-                                persistId: anonId
-                            }
-                        }
-                    })
-                } catch (e) {
-                    Evergage.sendEvent({
-                        name: "Ticketmaster ID merge Failed",
-                        action: "Ticketmaster ID merge Failed"
-                    })
-                }
-            }
-
-        }
         
-        const sendProdView = () => {
+    }
+}, 2000)
+
+const sendUserId = () => {
+    if (/persistUserId/.test(window.location.href)) {
+        try {
+            const anonId = location.href.split("persistUserId=")[1];
             Evergage.sendEvent({
+                name: "Ticketmaster ID merge",
+                user: {
+                    attributes: {
+                        persistId: anonId
+                    }
+                },
                 itemAction: Evergage.ItemAction.ViewItem,
                 action: "View Item",
                 catalog: {
@@ -61,9 +61,13 @@ let timerVar = setInterval(() => {
                     }
                 }
             })
+        } catch (e) {
+            Evergage.sendEvent({
+                name: "Ticketmaster ID merge Failed",
+                action: "Ticketmaster ID merge Failed"
+            })
         }
-
-        sendProdView();
-        sendUserId();
     }
-}, 2000)
+
+}
+sendUserId();
