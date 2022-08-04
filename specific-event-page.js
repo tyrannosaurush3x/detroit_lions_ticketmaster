@@ -40,6 +40,20 @@ let timerVar = setInterval(() => {
     }
 }, 2000)
 
+const sendProdView = () => {
+    Evergage.sendEvent({
+        itemAction: Evergage.ItemAction.ViewItem,
+        action: "View Item",
+        catalog: {
+            Product: {
+                _id: '$event_id$',
+                name: '$event_name$',
+                categories: ['TICKETS|$artist_name$'.toUpperCase()]
+            }
+        }
+    })
+}
+
 const sendUserId = () => {
     if (/persistUserId/.test(window.location.href)) {
         try {
@@ -49,15 +63,6 @@ const sendUserId = () => {
                 user: {
                     attributes: {
                         persistId: anonId
-                    }
-                },
-                itemAction: Evergage.ItemAction.ViewItem,
-                action: "View Item",
-                catalog: {
-                    Product: {
-                        _id: '$event_id$',
-                        name: '$event_name$',
-                        categories: ['TICKETS|$artist_name$'.toUpperCase()]
                     }
                 }
             })
@@ -71,3 +76,4 @@ const sendUserId = () => {
 
 }
 sendUserId();
+sendProdView();
