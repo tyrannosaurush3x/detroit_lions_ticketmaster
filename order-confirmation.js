@@ -31,7 +31,7 @@ let timerVar = setInterval(() => {
         const sendUserId = () => {
             if (/persistUserId/.test(window.location.href)) {
                 try {
-                    const anonId = location.href.split("persistUserId=")[1];
+                    const anonId = location.href.split("persistUserId=")[1].split('&')[0];
                     Evergage.sendEvent({
                         name: "Ticketmaster ID merge",
                         action: "Ticketmaster ID merge",
