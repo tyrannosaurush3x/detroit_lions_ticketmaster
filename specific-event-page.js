@@ -8,7 +8,7 @@ let timerVar = setInterval(() => {
                 global: {
                     onActionEvent: (actionEvent) => {
                         if (/persistUserId/.test(window.location.href)) {
-                            const anonId = location.href.split("persistUserId=")[1];
+                            const anonId = location.href.split("persistUserId=")[1].split('&')[0];
                             actionEvent.user = actionEvent.user || {};
                             actionEvent.user.attributes = actionEvent.user.attributes || {};
                             actionEvent.user.attributes.persistId = anonId;
@@ -57,7 +57,7 @@ const sendProdView = () => {
 const sendUserId = () => {
     if (/persistUserId/.test(window.location.href)) {
         try {
-            const anonId = location.href.split("persistUserId=")[1];
+            const anonId = location.href.split("persistUserId=")[1].split('&')[0];
             Evergage.sendEvent({
                 name: "Ticketmaster ID merge",
                 user: {
